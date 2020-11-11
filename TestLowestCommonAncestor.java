@@ -8,18 +8,20 @@ class TestLowestCommonAncestor {
 	public void testLowestCommonAncestor() {
 		LowestCommonAncestor test = new LowestCommonAncestor();
 		
-		test.root = new Node(1); 
-		test.root.left = new Node(2); 
-		test.root.right = new Node(3); 
-		test.root.left.left = new Node(4); 
-		test.root.left.right = new Node(5); 
-		test.root.right.left = new Node(6); 
-		test.root.right.right = new Node(7);
-        
-		assertEquals(test.findLowestCommonAncestor(6, 7).data, 3);
-		assertEquals(test.findLowestCommonAncestor(1, 7).data, 1);
-		assertEquals(test.findLowestCommonAncestor(4, 5).data, 2);
-		assertEquals(test.findLowestCommonAncestor(2, 5).data, 2);
+	Graph dag = test.newGraph(7);
+	dag.addEdge(0,1);
+	dag.addEdge(0,3);
+	dag.addEdge(1,2);
+	dag.addEdge(1,5);
+	dag.addEdge(3,4);
+	dag.addEdge(4,5);
+	dag.addEdge(5,6);
+	
+	assertEquals(test.findLowestCommonAncestor((Integer) 0, 0, dag).data, 0);
+	assertEquals(test.findLowestCommonAncestor((Integer) 2, 4, dag).data, 0);
+	assertEquals(test.findLowestCommonAncestor((Integer) 5, 6, dag).data, 5);
+	assertEquals(test.findLowestCommonAncestor((Integer) 3, 4, dag).data, 3);
+	assertEquals(test.findLowestCommonAncestor((Integer) 1, 2, dag).data, 1);
 	}
 
 }
